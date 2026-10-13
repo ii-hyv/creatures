@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Creature(props) {
 
 
-    const [isAwake, setIsAwake] = useState(true);
+    const [isAwake, setIsAwake] = useState(props.isAwake);
 
     const [posX, setPosX] = useState(props.x);
     const [posY, setPosY] = useState(props.y);
@@ -16,17 +16,15 @@ function Creature(props) {
         console.log("Creature is awake!");
     }
 
-    useEffect(() => {
-        if (isAwake) {
-            handleAwake(); ''
-        }
-    }, [isAwake]);
-
 const imageUrl = isAwake ? props.awakeImageUrl : props.sleepImageUrl;
 
 function handleClick() {
         const updatedState = !isAwake;
         setIsAwake(updatedState);
+        if (updatedState) {
+            handleAwake();
+        }
+    props.onAwakeChange(updatedState);
     }
 
     const style = {

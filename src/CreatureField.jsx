@@ -2,8 +2,7 @@ import { useState } from 'react';
 import Creature from './Creature.jsx';
 
 function CreatureField() {
-    const [status, setStatus] = useState('');
-    const creatureData =[
+    const [creatureData, setCreatureData] = useState([
         {
             id: 1, name: "Mr. Fresh", age: 3, isAwake: false,
             sleepImageUrl: "/images/first_sleep.png",
@@ -34,7 +33,7 @@ function CreatureField() {
             awakeImageUrl: "/images/fifth_awake.png",
             x: 550, y: 590
         }
-    ]
+    ]);
 
     const fieldStyle = {
         position: 'relative',
@@ -45,9 +44,11 @@ function CreatureField() {
         backgroundColor: '#6b8c66'
     };
 
+    const awakeCount = creatureData.filter(creature => creature.isAwake).length;
+
     return (
         <div style={fieldStyle}>
-            <p aria-live="polite">{status}</p>
+            <p>{awakeCount} of {creatureData.length} creatures awake</p>
             {creatureData.map(creature => (
                 <Creature
                     key={creature.id}
@@ -57,7 +58,13 @@ function CreatureField() {
                     sleepImageUrl={creature.sleepImageUrl}
                     awakeImageUrl={creature.awakeImageUrl}
                     x={creature.x} y={creature.y}
-                    onWake={() => setStatus(`${creature.name} woke up.`)}
+                    onAwakeChange={isAwake => {
+                        setCreatureData(currentCreatures => currentCreatures.map(currentCreature => (
+                            currentCreature.id === creature.id
+                                ? { ...currentCreature, isAwake }
+                                : currentCreature
+                        )));
+                    }}
                 />
             ))} 
         </div>
