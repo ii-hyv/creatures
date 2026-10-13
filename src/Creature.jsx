@@ -12,7 +12,7 @@ function Creature(props) {
 
     useEffect(() => {
         if (isAwake) {
-            handleWakeUp(); ''
+            handleAwake(); ''
         }
     }, [isAwake]);
 
