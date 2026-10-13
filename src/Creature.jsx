@@ -1,6 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Creature(props) {
+
+
+    const [isAwake, setIsAwake] = useState(true);
+
+        function handleAwake() {
+        //TODO random paikkaan creature
+        console.log("Creature is awake!");
+    }
+
+    useEffect(() => {
+        if (isAwake) {
+            handleWakeUp(); ''
+        }
+    }, [isAwake]);
+
+const imageUrl = isAwake ? props.awakeImageUrl : props.sleepImageUrl;
+
+function handleClick() {
+        const updatedState = !isAwake;
+        setIsAwake(updatedState);
+    }
+
     const style = {
         position: 'absolute',
         left: props.x + 'px',
@@ -9,12 +31,6 @@ function Creature(props) {
         imageRendering: 'pixelated'
     };
 
-    const [isAwake, setIsAwake] = useState(true);
-    const imageUrl = isAwake ? props.awakeImageUrl : props.sleepImageUrl;
-    function handleClick() {
-        setIsAwake(!isAwake);
-    }
-    
     return (
         <div style={style}>
             <img src={imageUrl} alt={props.name} width="120" onClick={handleClick} />
