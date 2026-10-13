@@ -5,8 +5,14 @@ function Creature(props) {
 
     const [isAwake, setIsAwake] = useState(true);
 
+    const [posX, setPosX] = useState(props.x);
+    const [posY, setPosY] = useState(props.y);
+    
         function handleAwake() {
-        //TODO random paikkaan creature
+        const randomX = Math.floor(Math.random() * 601);
+        const randomY = Math.floor(Math.random() * 601);
+        setPosX(randomX);
+        setPosY(randomY);
         console.log("Creature is awake!");
     }
 
@@ -25,8 +31,8 @@ function handleClick() {
 
     const style = {
         position: 'absolute',
-        left: props.x + 'px',
-        top: props.y + 'px',
+        left: posX + 'px',
+        top: posY + 'px',
         textAlign: 'center',
         imageRendering: 'pixelated'
     };
