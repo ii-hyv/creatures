@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import Creature from './Creature.jsx';
 
 function CreatureField() {
+    const [status, setStatus] = useState('');
     const creatureData =[
         {
             id: 1, name: "Mr. Fresh", age: 3, isAwake: false,
@@ -43,22 +45,20 @@ function CreatureField() {
         backgroundColor: '#6b8c66'
     };
 
-    const creatures =[]
-
     return (
         <div style={fieldStyle}>
+            <p aria-live="polite">{status}</p>
             {creatureData.map(creature => (
-                creatures.push(
-                    <Creature
-                        key={creature.id}
-                        name={creature.name}
-                        age={creature.age}
-                        isAwake={creature.isAwake}
-                        sleepImageUrl={creature.sleepImageUrl}
-                        awakeImageUrl={creature.awakeImageUrl}
-                        x={creature.x} y={creature.y}
-                    />
-                )
+                <Creature
+                    key={creature.id}
+                    name={creature.name}
+                    age={creature.age}
+                    isAwake={creature.isAwake}
+                    sleepImageUrl={creature.sleepImageUrl}
+                    awakeImageUrl={creature.awakeImageUrl}
+                    x={creature.x} y={creature.y}
+                    onWake={() => setStatus(`${creature.name} woke up.`)}
+                />
             ))} 
         </div>
     );

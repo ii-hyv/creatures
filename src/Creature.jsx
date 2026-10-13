@@ -9,9 +9,12 @@ function Creature(props) {
         imageRendering: 'pixelated'
     };
 
-    const [isAwake, setIsAwake] = useState(true);
+    const [isAwake, setIsAwake] = useState(props.isAwake);
     const imageUrl = isAwake ? props.awakeImageUrl : props.sleepImageUrl;
     function handleClick() {
+        if (!isAwake) {
+            props.onWake();
+        }
         setIsAwake(!isAwake);
     }
     
